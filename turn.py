@@ -5,16 +5,16 @@ import smtplib
 from email.message import EmailMessage
 
 # Open the plain text file whose name is in textfile for reading.
-with open(textfile) as fp:
+# with open(textfile) as fp:
     # Create a text/plain message
-    msg = EmailMessage()
-    msg.set_content(fp.read())
+msg = EmailMessage()
+    # msg.set_content(fp.read())
 
-# me == the sender's email address
-# you == the recipient's email address
-msg['Subject'] = f'The contents of {textfile}'
-msg['From'] = me
-msg['To'] = you
+# me == test.mime90@gmail.com
+# you == mstahmid0@gmail.com
+msg['Subject'] = 'How is the day going there?'
+msg['From'] = 'test.mime90@gmail.com'
+msg['To'] = 'mstahmid0@gmail.com'
 
 # Send the message via our own SMTP server.
 s = smtplib.SMTP('localhost')
