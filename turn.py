@@ -1,23 +1,30 @@
 # Import smtplib for the actual sending function
-import smtplib
+import smtplib # SMTP(Simple Mail Transfer Protocol) is a send only protocol, which means we can only send email but not retrieve it.
 
-# Import the email modules we'll need
-from email.message import EmailMessage
 
-# Open the plain text file whose name is in textfile for reading.
-# with open(textfile) as fp:
-    # Create a text/plain message
-msg = EmailMessage()
-    # msg.set_content(fp.read())
+gmail_user = 'you@gmail.com'
+gmail_password = 'P@ssword!'
 
-# me == test.mime90@gmail.com
-# you == mstahmid0@gmail.com
-msg['Subject'] = 'How is the day going there?'
-msg['From'] = 'test.mime90@gmail.com'
-msg['To'] = 'mstahmid0@gmail.com'
+sent_from = gmail_user
+to = ['me@gmail.com', 'bill@gmail.com']
+subject = 'OMG Super Important Message'
+body = 'Hey, what's up?\n\n- You'
 
-# Send the message via our own SMTP server.
-s = smtplib.SMTP('localhost')
-s.send_message(msg)
-s.quit()
+email_text = """\
+From: %s
+To: %s
+Subject: %s
 
+%s
+""" % (sent_from, ", ".join(to), subject, body)
+
+try:
+    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    server.ehlo()
+    server.login(gmail_user, gmail_password)
+    server.sendmail(sent_from, to, email_text)
+    server.close()
+
+    print 'Email sent!'
+except:
+    print 'Something went wrong...'
