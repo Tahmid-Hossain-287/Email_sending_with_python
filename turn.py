@@ -20,4 +20,3 @@ msg['To'] = you
 s = smtplib.SMTP('localhost')
 s.send_message(msg)
 s.quit()
-
